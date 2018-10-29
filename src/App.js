@@ -5,6 +5,10 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.press = this.press.bind(this)
+    this.generateRandom = this.generateRandom.bind(this)
+    this.state = {
+      number: 'Not random number defined yet!'
+    }
   }
   render() {    
     const siglo = 21;
@@ -38,7 +42,7 @@ class App extends Component {
 
         <div>
           <h2>Evenst</h2>
-        <form onSubmit={ this.press }>
+          <form onSubmit={ this.press }>
           <p>Ingrese primer valor:
             <input type="number" name="valor1" />
           </p>
@@ -49,6 +53,12 @@ class App extends Component {
             <input type="submit" value="sum" />
           </p>
         </form>
+      </div>
+
+      <div>
+        <h2>State of the component</h2>
+        <p>Random number: { this.state.number }</p>
+        <button onClick={ this.generateRandom }>Generate random number</button>
       </div>
 
     </div>
@@ -65,6 +75,13 @@ class App extends Component {
     const v2 = parseInt(e.target.valor2.value, 10);
     const sum = v1 + v2;
     console.log('The sum is:' + sum);
+  }
+
+  generateRandom(){
+    const v = this.returnRandomValue();
+    this.setState( {
+      number: v
+    })
   }
 }
 
