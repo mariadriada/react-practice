@@ -7,9 +7,28 @@ class App extends Component {
     this.press = this.press.bind(this)
     this.generateRandom = this.generateRandom.bind(this)
     this.generateRandomNumbers = this.generateRandomNumbers.bind(this)
+    this.deleteLastRow = this.deleteLastRow.bind(this)
+    this.delete = this.delete.bind(this)
     this.state = {
       number: 'Not random number defined yet!',
-      numbers: []
+      numbers: [],
+      articles: [
+        {
+          code: 1,
+          description: 'Article one',
+          price: 11000
+        },
+        {
+          code: 2,
+          description: 'Article two',
+          price: 31000
+        },
+        {
+          code: 3,
+          description: 'Article three',
+          price: 81000
+        }
+      ]
     }
   }
   render() {    
@@ -66,6 +85,24 @@ class App extends Component {
             return (<p>{ num }</p>)
         })}
         <button onClick={ this.generateRandomNumbers }>Generate five random numbers</button>
+
+        <h3>Show articles</h3>
+        <table border="1">
+          <thead><tr><th>Código</th><th>Descripción</th><th>Precio</th></tr></thead>
+          <tbody>
+            { this.state.articles.map(element => {
+              return (
+                <tr key={ element.code }>
+                  <td>{ element.code }</td>
+                  <td>{ element.description }</td>
+                  <td>${ element.price }</td>
+                  <td><button onClick={ () => this.delete(element.code) }>Delete</button></td>
+                </tr>
+              )
+            }) }
+          </tbody>
+        </table>
+        <button onClick={ this.deleteLastRow }>Delete last row</button>
       </div>
 
     </div>
@@ -98,6 +135,23 @@ class App extends Component {
     this.setState( {
         numbers: array
     })
+  }
+
+  deleteLastRow(){
+    if (this.state.articles.length > 0) {
+      var temp = this.state.articles;
+      temp.pop();
+      this.setState({
+        articles: temp
+      })
+    }  
+  }
+
+  delete(cod){
+    var temp = this.state.articles.filter((el)=>el.code !== cod);
+      this.setState({
+        articles: temp
+      })
   }
 }
 
