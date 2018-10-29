@@ -6,8 +6,10 @@ class App extends Component {
     super(props)
     this.press = this.press.bind(this)
     this.generateRandom = this.generateRandom.bind(this)
+    this.generateRandomNumbers = this.generateRandomNumbers.bind(this)
     this.state = {
-      number: 'Not random number defined yet!'
+      number: 'Not random number defined yet!',
+      numbers: []
     }
   }
   render() {    
@@ -58,7 +60,12 @@ class App extends Component {
       <div>
         <h2>State of the component</h2>
         <p>Random number: { this.state.number }</p>
-        <button onClick={ this.generateRandom }>Generate random number</button>
+        <button onClick={ this.generateRandom }>Generate random number</button><br/>
+        <p>random numbers:</p>
+        { this.state.numbers.map((num) => {
+            return (<p>{ num }</p>)
+        })}
+        <button onClick={ this.generateRandomNumbers }>Generate five random numbers</button>
       </div>
 
     </div>
@@ -81,6 +88,15 @@ class App extends Component {
     const v = this.returnRandomValue();
     this.setState( {
       number: v
+    })
+  }
+
+  generateRandomNumbers(){
+    const array = new Array(5)
+    for(let x = 0; x < array.length; x++)
+      array[x] = this.returnRandomValue()
+    this.setState( {
+        numbers: array
     })
   }
 }
