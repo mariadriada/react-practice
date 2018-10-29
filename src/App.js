@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
-  render() {
+  constructor(props) {
+    super(props)
+    this.press = this.press.bind(this)
+  }
+  render() {    
     const siglo = 21;
     const person = {
       name: 'Maria',
@@ -30,12 +34,37 @@ class App extends Component {
         <div>
           <a href={ browsers[0] }>Go to google</a><br/>
           <a href={ browsers[1] }>Go to facebook</a>
-        </div>
+        </div>     
+
+        <div>
+          <h2>Evenst</h2>
+        <form onSubmit={ this.press }>
+          <p>Ingrese primer valor:
+            <input type="number" name="valor1" />
+          </p>
+          <p>Ingrese segundo valor:
+            <input type="number" name="valor2" />
+          </p>        
+          <p>
+            <input type="submit" value="sum" />
+          </p>
+        </form>
       </div>
+
+    </div>
     );
   }
+
   returnRandomValue(){
     return Math.trunc(Math.random() * 10);
+  }
+
+  press(e){
+    e.preventDefault();
+    const v1 = parseInt(e.target.valor1.value, 10);
+    const v2 = parseInt(e.target.valor2.value, 10);
+    const sum = v1 + v2;
+    console.log('The sum is:' + sum);
   }
 }
 
